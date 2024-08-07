@@ -9,35 +9,6 @@ class CreateLibrarySystemTables extends Migration
 {
     public function up()
     {   
-        Schema::create('student_profile', function (Blueprint $table) {
-            $table->integer('student_id')->autoIncrement();
-            $table->integer('student_lrn')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('middle_name')->nullable();
-            $table->string('extension')->nullable();
-            $table->string('student_email')->nullable();
-            $table->date('student_birthd')->nullable();
-            $table->string('student_birthp')->nullable();
-            $table->string('student_civil')->nullable();
-            $table->string('student_sex')->nullable();
-            $table->string('student_citizen')->nullable();
-            $table->string('student_religion')->nullable();
-            $table->string('student_region')->nullable();
-            $table->string('student_province')->nullable();
-            $table->string('student_city')->nullable();
-            $table->string('student_barangay')->nullable();
-            $table->string('student_street')->nullable();
-            $table->string('student_zip')->nullable();
-        });
-
-        Schema::create('faculty', function (Blueprint $table) {
-            $table->integer('id')->autoIncrement();
-            $table->string('fname');
-            $table->string('mname')->nullable();
-            $table->string('lname');
-            $table->string('extension')->nullable();
-        });
 
         Schema::create('book_category', function (Blueprint $table) {
             $table->string('categ_name')->primary();
