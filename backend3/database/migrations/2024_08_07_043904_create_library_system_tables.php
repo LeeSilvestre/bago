@@ -31,7 +31,6 @@ class CreateLibrarySystemTables extends Migration
             $table->string('student_zip')->nullable();
         });
 
-        // Creating faculty table
         Schema::create('faculty', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->string('fname');
