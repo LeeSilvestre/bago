@@ -9,7 +9,6 @@ class CreateLibrarySystemTables extends Migration
 {
     public function up()
     {   
-        // Creating student_profile table
         Schema::create('student_profile', function (Blueprint $table) {
             $table->integer('student_id')->autoIncrement();
             $table->integer('student_lrn')->nullable();
@@ -41,7 +40,6 @@ class CreateLibrarySystemTables extends Migration
             $table->string('extension')->nullable();
         });
 
-        // Creating book_category table
         Schema::create('book_category', function (Blueprint $table) {
             $table->string('categ_name')->primary();
             $table->boolean('is_archived')->default(0);
@@ -50,7 +48,6 @@ class CreateLibrarySystemTables extends Migration
             $table->integer('damaged_fine');
         });
 
-        // Creating books table
         Schema::create('books', function (Blueprint $table) {
             $table->string('book_title')->primary();
             $table->string('book_auth');
@@ -64,8 +61,6 @@ class CreateLibrarySystemTables extends Migration
         });
 
         
-
-        // Creating borrowed_books table
         Schema::create('borrowed_books', function (Blueprint $table) {
             $table->integer('borrow_id')->autoIncrement();
             $table->string('book_title');
@@ -81,8 +76,6 @@ class CreateLibrarySystemTables extends Migration
         });
 
         
-
-        // Creating faculty_borrow table
         Schema::create('faculty_borrow', function (Blueprint $table) {
             $table->integer('borrow_id')->autoIncrement();
             $table->string('book_title');
@@ -97,14 +90,12 @@ class CreateLibrarySystemTables extends Migration
             $table->foreign('id')->references('id')->on('faculty');
         });
 
-        // Creating librarian table
         Schema::create('librarian', function (Blueprint $table) {
             $table->integer('lib_id')->autoIncrement();
             $table->string('lib_email');
             $table->string('lib_pass');
         });
 
-        // Creating library_status table
         Schema::create('library_status', function (Blueprint $table) {
             $table->integer('student_id');
             $table->enum('status', ['Not Yet Cleared', 'Cleared'])->default('Cleared');
@@ -112,7 +103,6 @@ class CreateLibrarySystemTables extends Migration
             $table->foreign('student_id')->references('student_id')->on('student_profile');
         });
 
-        // Creating logging table
         Schema::create('logging', function (Blueprint $table) {
             $table->integer('log_id')->autoIncrement();
             $table->integer('student_id');
@@ -123,7 +113,6 @@ class CreateLibrarySystemTables extends Migration
             $table->foreign('student_id')->references('student_id')->on('student_profile');
         });
 
-        // Creating rental table
         Schema::create('rental', function (Blueprint $table) {
             $table->integer('rental_id')->autoIncrement();
             $table->integer('student_id');
@@ -180,7 +169,6 @@ class CreateLibrarySystemTables extends Migration
 
         DB::statement('SET GLOBAL event_scheduler = ON;');
 
-        // Creating triggers
         DB::unprepared('
             CREATE TRIGGER `update_borrow_status` BEFORE UPDATE ON `borrowed_books` FOR EACH ROW BEGIN
                 IF NEW.borrow_status = 0 AND NOW() > NEW.return_duedate THEN
@@ -316,7 +304,6 @@ class CreateLibrarySystemTables extends Migration
             END;
         ');
 
-        // Creating events
         DB::unprepared('
             CREATE DEFINER=`root`@`localhost` EVENT `update_fines_event` ON SCHEDULE EVERY 10 SECOND STARTS \'2024-08-04 22:16:36\' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
                 UPDATE borrowed_books bb
@@ -389,7 +376,6 @@ class CreateLibrarySystemTables extends Migration
 
     public function down()
     {
-        // Dropping triggers
         DB::unprepared('DROP TRIGGER IF EXISTS `update_borrow_status`');
         DB::unprepared('DROP TRIGGER IF EXISTS `update_damagereturn_date`');
         DB::unprepared('DROP TRIGGER IF EXISTS `update_library_status`');
@@ -400,7 +386,6 @@ class CreateLibrarySystemTables extends Migration
         DB::unprepared('DROP TRIGGER IF EXISTS `update_faculty_return_date`');
         DB::unprepared('DROP TRIGGER IF EXISTS `calculate_fines`');
 
-        // Dropping events
         DB::unprepared('DROP EVENT IF EXISTS `update_fines_event`');
         DB::unprepared('DROP EVENT IF EXISTS `check_overdue_fines`');
         DB::unprepared('DROP EVENT IF EXISTS `check_overdue_fines_faculty`');
