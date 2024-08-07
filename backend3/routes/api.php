@@ -20,10 +20,12 @@ Route::prefix('api')->group(function () {
     Route::get('/borrowstatus/user/{id}', [BorrowedBookController::class, 'getAllBorrowByStudent']); //check
     Route::get('/borrowstatus/borrow/{id}', [BorrowedBookController::class, 'getAllBorrowByBorrow']); //check
     Route::put('/borrowstatus/{id}', [BorrowedBookController::class, 'updateBorrowStatus']); //check
-    Route::put('/borrowstatus/damaged/{id}', [BorrowedBookController::class, 'damagedBorrowStatus']); //check
-    Route::put('/borrowstatus/damagedpay/{id}', [BorrowedBookController::class, 'dPayBorrowStatus']); //check
-    Route::put('/borrowstatus/lostpay/{id}', [BorrowedBookController::class, 'lPayBorrowStatus']); //check
-    Route::put('/borrowstatus/lost/{id}', [BorrowedBookController::class, 'lostBorrowStatus']); //check
+    Route::put('/borrowstatus/damaged/{id}', [BorrowedBookController::class, 'damagedBorrowStatus']);
+    Route::put('/borrowstatus/damagedpay/{id}', [BorrowedBookController::class, 'dPayBorrowStatus']);
+    Route::put('/borrowstatus/lostpay/{id}', [BorrowedBookController::class, 'lPayBorrowStatus']);
+    Route::put('/borrowstatus/lost/{id}', [BorrowedBookController::class, 'lostBorrowStatus']);
+    Route::put('/borrowstatus/overdue/{id}', [BorrowedBookController::class, 'oPayBorrowStatus']);
+
     // Students Profile
     Route::get('/student', [StudentProfileController::class, 'allStudents']); //check
     Route::get('/student/{id}', [StudentProfileController::class, 'showAStudent']); //check
@@ -55,7 +57,10 @@ Route::prefix('api')->group(function () {
     Route::get('/faculty/borrows/{id}', [FacultyBorrowController::class, 'getFacultyBorrow']);
     Route::put('/faculty/borrows/update/{id}', [FacultyBorrowController::class, 'updateFacultyBorrowStatus']);
     Route::put('/faculty/damaged/{id}', [FacultyBorrowController::class, 'damagedFacultyBorrowStatus']);
+    Route::put('/faculty/damagedpay/{id}', [FacultyBorrowController::class, 'dPayFacultyBorrowStatus']);
     Route::put('/faculty/lost/{id}', [FacultyBorrowController::class, 'lostFacultyBorrowStatus']);
+    Route::put('/faculty/lostpay/{id}', [FacultyBorrowController::class, 'lPayFacultyBorrowStatus']);
+    Route::put('/faculty/overdue/{id}', [FacultyBorrowController::class, 'oPayFacultyBorrowStatus']);
     Route::put('/faculty/borrows/cancel/{id}', [FacultyBorrowController::class, 'cancelFacultyBorrowStatus']);
 
     // Faculty
@@ -80,5 +85,8 @@ Route::prefix('api')->group(function () {
     //Rental
     Route::get('/rental', [RentalController::class, 'allRental']);
     Route::get('/rental/{id}', [RentalController::class, 'showARental']);
-    Route::post('/rental', [RentalController::class, 'createALog']);
+    Route::post('/rental', [RentalController::class, 'createRental']);
+    Route::put('/rental/{id}', [RentalController::class, 'updateRental']);
+    Route::put('/rental/receipt/{id}', [RentalController::class, 'receiptRental']);
+    Route::put('/rental/return/{id}', [RentalController::class, 'returnRental']);
 });

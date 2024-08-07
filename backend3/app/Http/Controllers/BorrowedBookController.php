@@ -118,6 +118,18 @@ class BorrowedBookController extends Controller
         return response()->json(['message' => 'Borrow status updated successfully'], 200);
     }
 
+    public function oPayBorrowStatus($id)
+    {
+        $borrowStatus = BorrowedBook::find($id);
+        if (!$borrowStatus) {
+            return response()->json(['error' => 'Borrowed book not found'], 404);
+        }
+        $borrowStatus->update(['borrow_status' => 7]);
+        $book = $borrowStatus->book;
+        $book->increment('book_qty');
+        return response()->json(['message' => 'Borrow status updated successfully'], 200);
+    }
+
     public function cancelBorrowStatus($id)
     {
         $borrowStatus = BorrowedBook::find($id);

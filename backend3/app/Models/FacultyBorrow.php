@@ -10,7 +10,7 @@ class FacultyBorrow extends Model
     protected $primaryKey = 'borrow_id';
     public $timestamps = false; 
     protected $fillable = [
-        'book_title', 'id', 'borrowed_date', 'return_duedate', 'borrow_status', 'access_no', 'return_date'
+        'book_title', 'id', 'borrowed_date', 'return_duedate', 'borrow_status', 'access_no', 'return_date', 'total_fine'
     ];
     public function book()
     {

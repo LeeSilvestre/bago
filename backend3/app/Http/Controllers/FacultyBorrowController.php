@@ -101,6 +101,18 @@ class FacultyBorrowController extends Controller
         return response()->json(['message' => 'Faculty borrow status updated successfully'], 200);
     }
 
+    public function oPayFacultyBorrowStatus($id)
+    {
+        $facultyBorrow = FacultyBorrow::find($id);
+        if (!$facultyBorrow) {
+            return response()->json(['error' => 'Faculty borrowed book not found'], 404);
+        }
+        $facultyBorrow->update(['borrow_status' => 6]);
+        $book = $facultyBorrow->book;
+        //$book->increment('book_qty');
+        return response()->json(['message' => 'Faculty borrow status updated successfully'], 200);
+    }
+
     public function cancelFacultyBorrowStatus($id)
     {
         $facultyBorrow = FacultyBorrow::find($id);

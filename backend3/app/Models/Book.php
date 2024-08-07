@@ -12,7 +12,7 @@ class Book extends Model
     protected $keyType = 'string';
     public $timestamps = false; 
     protected $fillable = [
-        'book_title', 'book_auth', 'categ_name', 'book_qty', 'is_archived', 'reason'
+        'book_title', 'book_auth', 'categ_name', 'book_qty', 'is_archived', 'reason', 'pub_date', 'copyright_owner'
     ];
 
     public function category()
